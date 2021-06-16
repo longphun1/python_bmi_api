@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width={% extends "account/base.html" %}
+</head>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/main/logout.css' %}" />
+<body>
+  {% load i18n %}
+  {% block content %}
+  <div class="container">
+    <p class="header">{% trans 'Are you sure you want to sign out?' %}</p>
+    
+    <div>
+      <a class="go-back-btn" href="/accounts/profile/">Go Back</a>
+      <form class="submit-form" method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <button class="sign-out" type="submit">{% trans 'Sign Out' %}</button>
+      </form>
+    </div>
+  </div>
+  {% endblock %}, initial-scale=1.0">
+</body>
+</html>

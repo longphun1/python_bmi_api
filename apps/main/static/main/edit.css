@@ -1,0 +1,166 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+.header-container {
+    background-color: #273746;
+    min-height: 15vh;
+    width: 100vw;
+}
+
+.h-container {
+    margin-left: 5%;
+    padding-top: 1%;
+}
+
+.header {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 1%;
+}
+
+.logout-btn {
+    color: white;
+    font-size: medium;
+    text-decoration: none;
+}
+
+.logout-btn:hover {
+    color: #6495ED;
+}
+
+.go-back-btn {
+    color: white;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.go-back-btn:hover {
+    text-decoration: underline;
+}
+
+.data-container {
+    max-height: 85vh;
+    padding-top: 5%;
+    width: 100vw;
+}
+
+.data-box {
+    height: 300px;
+    margin: auto;
+    text-align: center;
+    width: 40vw;
+}
+
+.date-text {
+    color: rgb(207, 207, 207);
+    text-align: right !important;
+}
+
+li {
+    font-size: x-large;
+    text-align: left !important;
+    margin-bottom: 5px;
+}
+
+.form-container {
+    margin-top: 50px;
+}
+
+.input-form {
+    border-radius: 5px;
+    border-style: none;
+    border-bottom: 1px solid black;
+    height: 30px;
+    margin: 10px;
+    outline: none;
+    padding: 3px;
+    padding-left: 8px;
+}
+
+.select-container {
+    display: inline-block;
+}
+
+.select-gender {
+    background-color: white;
+    border-bottom: 1px solid black;
+    border-radius: 5px;
+    height: 36px;
+}
+
+.btn-container {
+    text-align: center;
+    width: 100%;
+}
+
+.submit-btn {
+    background-color: #6495ED;
+    border-radius: 3px;
+    color: white;
+    font-size: large;
+    height: 30px;
+    margin: 15px;
+    width: 100px;
+}
+
+.submit-btn:hover {
+    cursor: pointer;
+}
+
+.delete-btn {
+    background-color: #273746;
+    border-radius: 3px;
+    color: white;
+    font-size: large;
+    height: 30px;
+    margin: 15px;
+    text-decoration: none;
+    width: 100px;
+}
+
+.delete-btn:hover {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        margin-top: 5px;
+        margin-bottom: 12px;
+    }
+
+    .data-box {
+        width: 80vw;
+    }
+
+    .date-text {
+        margin-bottom: 5px;
+    }
+
+    .select-container {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .header-container {
+        padding-bottom: 10px;
+    }
+
+    .logout-btn {
+        display: block;
+    }
+
+    .submit-btn {
+        margin: 10px;
+        width: 80px;
+    }
+
+    .delete-btn {
+        margin: 10px;
+        width: 80px;
+    }
+}
+

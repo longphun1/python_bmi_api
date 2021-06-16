@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/main/edit.css' %}" />
+</head>
+<body>
+    {% load account %}
+    {% if user.is_active%}
+    <div class="header-container">
+        <div class="h-container">
+            <h1 class="header">Hello {{user.first_name}}, <a class="logout-btn" href="/accounts/logout/">not you? logout</a></h1>
+            <h2><a class="go-back-btn" href="/accounts/profile">Dashboard</a></h2>
+        </div>
+    </div>
+    <div class="data-container">
+        <div class="data-box">
+            <div class="box">
+                <h3 class="date-text">Created on {{data.created_at|date:"M d, Y"}}</h3>
+                <ul>
+                    <li>Status: {{data.status}}</li>
+                    <li>Risks: {{data.risk}}</li>
+                    <li>Ideal Weight: {{data.ideal}}</li>
+                </ul>
+                <h3></h3>
+            </div>
+            <div class="form-container">
+                {% if messages %}
+                    <p>Please provide your informations.</p>
+                {% endif %}
+                {% for message in messages %}            
+                {% endfor %}
+                <form action="/processEdit/{{data.id}}" method="POST">
+                {% csrf_token %}
+                    <input class="input-form" type="text" name="height" placeholder="Height: {{data.height}} cm">
+                    <input class="input-form" type="text" name="weight" placeholder="Weight: {{data.weight}} kg">
+                    <input class="input-form" type="text" name="age" placeholder="Age: {{data.age}}">
+                    <input class="input-form" type="text" name="waist" placeholder="Waist: {{data.waist}}">
+                    <div class="select-container">
+                        {% if data.sex == "m" %}
+                        <select class="select-gender" name="sex" id="" placeholder="{{data.sex}}">
+                            <option class="m" value="m">M</option>
+                            <option class="f" value="f">F</option>
+                        </select>
+                        {% else %}
+                        <select class="select-gender" name="sex" id="" placeholder="{{data.sex}}">
+                            <option class="f" value="f">F</option>
+                            <option class="m" value="m">M</option>
+                        </select>
+                        {% endif %}
+                    </div>
+                    <div class="btn-container">
+                        <input class="submit-btn" type="submit" value="Confirm">
+                        <a href="/deleteBmi/{{data.id}}"><button class="delete-btn" type="button">Delete</button></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>

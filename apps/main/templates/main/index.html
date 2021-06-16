@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/main/index.css' %}" />
+</head>
+<body>
+    {% if user.is_active%}
+    {% load account %}
+    <div class="header-form-container">
+        <div class="h-f-container">
+            <h1 class="header">Hello {{user.first_name}}, <a class="logout-btn" href="/accounts/logout/">not you? logout</a></h1>
+            {% if messages %}
+            <p class="error-mes">Please provide your informations.</p>
+            {% endif %}
+            {% for message in messages %}            
+            {% endfor %}
+            <div class="form-container">
+                <form action="/processBmi" method="POST">
+                    {% csrf_token %}
+                    <input class="input" type="hidden" name="user" value="{{user}}">
+                    <input class="input" type="text" name="height" placeholder="Height (cm)">
+                    <input class="input" type="text" name="weight" placeholder="Weight (kg)">
+                    <input class="input" type="text" name="age" placeholder="Age">
+                    <input class="input" type="text" name="waist" placeholder="Waist">
+                    <select class="select-gender" name="sex" id="">
+                        <option class="m" value="m">M</option>
+                        <option class="f" value="f">F</option>
+                    </select>
+                    <input class="submit-btn" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="data-container">
+        {% user_display user as user %}
+        <div class="table-container">
+            <table class="data-table">
+                <tr>
+                    <th>Date</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Info</th>
+                </tr>
+                {% for data in userData %}
+                {% if data.user == user %}
+                <tr>
+                    <td>{{data.created_at|date:"M d, Y"}}</td>
+                    <td>{{data.height}} cm</td>
+                    <td>{{data.weight}} kg</td>
+                    <td><a class="edit-btn" href="/editBmi/{{data.id}}">View</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="title">BMI Tracker</h1>
+            <a class="login-btn" href="/accounts/login/">Login</a>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div>
+        {{bmi.weight}}
+    </div>
+    
+</body>
+</html>

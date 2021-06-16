@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/main/login.css' %}" />
+
+<body>
+    {% load i18n %}
+    {% load account socialaccount %}
+    {% block content %}
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+    <div class="container">
+        <p class="header">Start your journey today</p>
+        <p class="login-with">{% blocktrans with site.name as site_name %}Login with:{% endblocktrans %}</p>
+        <div class="socialaccount_ballot">
+            
+                {% load socialaccount %}
+
+                {% get_providers as socialaccount_providers %}
+
+                {% for provider in socialaccount_providers %}
+                {% if provider.id == "openid" %}
+                {% for brand in provider.get_brands %}
+                <li>
+                    <a class="link" title="{{brand.name}}" class="socialaccount_provider {{provider.id}} {{brand.id}}"
+                        href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">{{brand.name}}</a>
+                </li>
+                {% endfor %}
+                {% endif %}
+
+                
+                <a class="link" title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+                    href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
+               
+
+                {% endfor %}
+            
+        </div>
+    </div>
+    {% include "socialaccount/snippets/login_extra.html" %}
+    {% endif %}
+    {% endblock %}
+</body>
+
+</html>
